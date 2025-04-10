@@ -3,18 +3,50 @@
 <head>
   <meta charset="utf-8">
   <title>Certificate Extractor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
     body {
       width: 300px;
       padding: 10px;
-      font-family: Arial, sans-serif;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f6fa;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
     }
-    input, button {
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    input, button , select{
       width: 100%;
       padding: 8px;
       margin: 5px 0;
       box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      transition: all 0.2s ease;
     }
+
+    input {
+      background-color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
     #result {
       margin-top: 10px;
       white-space: pre-wrap;
@@ -24,14 +56,75 @@
       border: 1px solid #ddd;
       padding: 8px;
       background: #f9f9f9;
+      border-radius: 4px;
+      font-size: 13px;
+      display: none;
+      opacity: 0;
+      animation: fadeIn 0.4s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        display: block;
+        opacity: 1;
+      }
+    }
+
+    #result.red { background-color: #ffebee; color: #b71c1c; }
+    #result.green { background-color: #e8f5e9; color: #1b5e20; }
+    #result.yellow { background-color: #fffde7; color: #f57f17; }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+    }
+
+    .row button {
+      flex: 1;
+    }
+
+    #toggleDark {
+      background-color: #444;
+      color: #fff;
+    }
+
+    #toggleDark.light {
+      background-color: #ddd;
+      color: #000;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #loadingContainer {
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h3>Certificate Extractor</h3>
-  <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://example.com)">
+  <h3>🔐 Certificate Extractor</h3>
+  <input type="text" id="urlInput" placeholder="Please enter a URL (e.g., https://example.com)">
   <button id="extractBtn">Extract Certificates</button>
+  
+  <select id="exportFormat">
+    <option value="json">Export as JSON</option>
+    <option value="txt">Export as TXT</option>
+  </select>
+
+  <div class="row">
+    <button id="exportBtn">Export</button>
+    <button id="toggleDark" class="light">🌙</button>
+  </div>
+
+  <div id="loadingContainer" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+
   <div id="result"></div>
+
   <script src="popup.js"></script>
 </body>
 </html>
