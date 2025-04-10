@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Certificate Extractor",
+  "version": "1.0",
+  "description": "Extracts X.509 certificates from websites",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "tabs",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon.png"
+    }
+  },
+  "icons": {
+    "48": "icon.png",
+    "96": "icon.png"
+  }
+}
